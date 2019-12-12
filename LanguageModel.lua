@@ -164,6 +164,7 @@ function LM:sample(kwargs)
   local sample = utils.get_kwarg(kwargs, 'sample', 1)
   local temperature = utils.get_kwarg(kwargs, 'temperature', 1)
   local stream = utils.get_kwarg(kwargs, 'stream', 0)
+  local stop_token = utils.get_kwarg(kwargs, 'stop_token', nil)
 
   local sampled = torch.LongTensor(1, T)
   self:resetStates()
@@ -201,9 +202,11 @@ function LM:sample(kwargs)
        next_char = torch.multinomial(probs, 1):view(1, 1)
     end
     sampled[{{}, {t, t}}]:copy(next_char)
+    local token = self.idx_to_token[next_char[1][1]]
     if stream == 1 then
-      io.write(self.idx_to_token[next_char[1][1]])
+      io.write(token)
     end
+    if token == stop_token then break end
     scores = self:forward(next_char)
   end
 

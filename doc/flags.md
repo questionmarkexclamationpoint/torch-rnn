@@ -58,3 +58,4 @@ The sampling script `sample.lua` accepts the following command-line flags:
 - `-gpu_backend`: The GPU backend to use; either `cuda` or `opencl`. Default is `cuda`.
 - `-verbose`: By default just the sampled text is printed to the console. Set this to 1 to also print some diagnostic information.
 - `-stream`: By default the sampled text is buffered and printed in one go. Set this to 1 to disable buffering and stream the sampled text one character at a time.
+- `-stop_token`: If this token is encountered, output will stop prematurely and return the string up to that character.
