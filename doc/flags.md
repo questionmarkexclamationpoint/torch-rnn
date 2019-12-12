@@ -59,3 +59,4 @@ The sampling script `sample.lua` accepts the following command-line flags:
 - `-verbose`: By default just the sampled text is printed to the console. Set this to 1 to also print some diagnostic information.
 - `-stream`: By default the sampled text is buffered and printed in one go. Set this to 1 to disable buffering and stream the sampled text one character at a time.
 - `-stop_token`: If this token is encountered, output will stop prematurely and return the string up to that character.
+- `-seed`: Default is 0. Set this to a non-zero value to seed the torch RNG with a specific value. Omit flag or set as zero to randomly seed the RNG(!). Seeding the RNG allows for reproductible output over multiple runs of sample.lua given the same parameters and checkpoint. Honours the -verbose flag.
