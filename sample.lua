@@ -54,4 +54,6 @@ model:evaluate()
 local sample = model:sample(opt)
 if opt.stream == 0 then -- If streaming then sample has already been printed
   print(sample)
+else
+  print('')
 end
