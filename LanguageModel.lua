@@ -142,7 +142,9 @@ function LM:decode_string(encoded)
   for i = 1, encoded:size(1) do
     local idx = encoded[i]
     local token = self.idx_to_token[idx]
-    s = s .. token
+    if token ~= nil then
+      s = s .. token
+    end
   end
   return s
 end
