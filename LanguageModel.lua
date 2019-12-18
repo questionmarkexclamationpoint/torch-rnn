@@ -137,16 +137,22 @@ end
 
 
 function LM:decode_string(encoded)
-  assert(torch.isTensor(encoded) and encoded:dim() == 1)
-  local s = ''
-  for i = 1, encoded:size(1) do
-    local idx = encoded[i]
-    local token = self.idx_to_token[idx]
-    if token ~= nil then
-      s = s .. token
+  local encoded = torch.LongTensor(#s)
+  local token = ''
+  local ei = 1
+  for i = 1, #s do
+    token = token .. s:sub(i, i)
+    local idx = self.token_to_idx[token]
+    if idx ~= nil then
+      encoded[ei] = idx
+      token = ''
+      ei = ei + 1
+    elseif #token == 4 or i == #s then
+      assert(idx ~= nil, 'Got invalid idx')
     end
   end
-  return s
+  encoded:resize(ei-1)
+  return encoded
 end
 
 
